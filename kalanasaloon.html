@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KalanaSaloon - ප්‍රමුඛ කේශ මෝස්තර සේවාව</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c1810;
+            --secondary: #d4af37;
+            --accent: #8b6f47;
+            --light: #f5f1ed;
+            --white: #ffffff;
+            --shadow: rgba(44, 24, 16, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary);
+            background: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(212,175,55,0.1)"/><stop offset="100%" style="stop-color:rgba(139,111,71,0.1)"/></linearGradient></defs><path d="M0,200 Q300,100 600,200 T1200,200 L1200,600 L0,600 Z" fill="url(%23g)"/></svg>');
+            background-size: cover;
+            opacity: 0.3;
+            animation: wave 20s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--white);
+            z-index: 1;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            animation: fadeInUp 1.2s ease-out 0.2s backwards;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 5px;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            animation: fadeInUp 1.2s ease-out 0.4s backwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 45px;
+            background: var(--secondary);
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            animation: fadeInUp 1.2s ease-out 0.6s backwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
+            background: #e5c158;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .scroll-indicator::after {
+            content: '↓';
+            font-size: 2rem;
+            color: var(--white);
+            opacity: 0.7;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(44, 24, 16, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            z-index: 1000;
+            transform: translateY(-100%);
+            animation: slideDown 0.8s ease-out 0.5s forwards;
+        }
+
+        @keyframes slideDown {
+            to { transform: translateY(0); }
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 400;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 6rem 10%;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 4rem;
+            font-weight: 300;
+        }
+
+        /* Services Section */
+        #services {
+            background: var(--white);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, var(--light) 0%, #ffffff 100%);
+            padding: 3rem 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px var(--shadow);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(44, 24, 16, 0.25);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .service-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .service-description {
+            color: var(--accent);
+            line-height: 1.8;
+        }
+
+        .service-price {
+            margin-top: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        /* Gallery Section */
+        #gallery {
+            background: var(--light);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow);
+            aspect-ratio: 1;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(44, 24, 16, 0.9), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-text {
+            color: var(--white);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* About Section */
+        #about {
+            background: var(--white);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.15rem;
+            line-height: 2;
+            color: var(--accent);
+        }
+
+        .about-content strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: var(--white);
+        }
+
+        #contact .section-title,
+        #contact .section-subtitle {
+            color: var(--white);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .contact-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 3rem 5%;
+        }
+
+        footer p {
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
+        .social-links {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .social-links a {
+            color: var(--secondary);
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: #e5c158;
+            transform: translateY(-3px);
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+                letter-spacing: 3px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .services-grid,
+            .gallery-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">මුල් පිටුව</a></li>
+            <li><a href="#services">සේවාවන්</a></li>
+            <li><a href="#gallery">ගැලරිය</a></li>
+            <li><a href="#about">අප ගැන</a></li>
+            <li><a href="#contact">අමතන්න</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="logo">KalanaSaloon</h1>
+            <p class="tagline">ඔබේ ශෛලිය අපගේ කලාව</p>
+            <a href="#contact" class="cta-button">වෙන්කරවා ගන්න</a>
+        </div>
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2 class="section-title">අපගේ සේවාවන්</h2>
+        <p class="section-subtitle">වෘත්තීය කේශ මෝස්තර සේවා</p>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <span class="service-icon">✂️</span>
+                <h3 class="service-title">කෙස් කැපුම</h3>
+                <p class="service-description">නවීන හා සම්ප්‍රදායික කෙස් මෝස්තර. අපගේ පළපුරුදු කෙස් මෝස්තර ශිල්පීන්ගේ අත්වැලෙන් ඔබට ගැලපෙන විශිෂ්ට මෝස්තරයක්.</p>
+                <p class="service-price">රු. 800 සිට</p>
+            </div>
+            <div class="service-card fade-in">
+                <span class="service-icon">💈</span>
+                <h3 class="service-title">රැවුල කැපීම</h3>
+                <p class="service-description">නිවැරදි රැවුල කැපීම් සහ හැඩ ගැන්වීම. ඔබේ මුහුණට ගැලපෙන පරිපූර්ණ රැවුල මෝස්තරයක් නිර්මාණය කරන්න.</p>
+                <p class="service-price">රු. 500 සිට</p>
+            </div>
+            <div class="service-card fade-in">
+                <span class="service-icon">🎨</span>
+                <h3 class="service-title">කෙස් වර්ණ ගැන්වීම</h3>
+                <p class="service-description">ස්වභාවික සහ නිර්මාණාත්මක වර්ණ ගැන්වීම්. උසස් තත්ත්වයේ නිෂ්පාදන භාවිතා කරමින් ඔබේ කෙස් වලට අලුත් පෙනුමක්.</p>
+                <p class="service-price">රු. 2500 සිට</p>
+            </div>
+            <div class="service-card fade-in">
+                <span class="service-icon">💆</span>
+                <h3 class="service-title">හිස මසාජ්</h3>
+                <p class="service-description">සන්සුන් කරන හිස මසාජ් සේවාව. ආතතිය අඩු කර රුධිර සංචලනය වැඩි දියුණු කරන විශේෂ තෙල් සමඟ.</p>
+                <p class="service-price">රු. 600 සිට</p>
+            </div>
+            <div class="service-card fade-in">
+                <span class="service-icon">🧴</span>
+                <h3 class="service-title">කෙස් ප්‍රතිකාර</h3>
+                <p class="service-description">ගැඹුරු කෙස් ප්‍රතිකාර සහ සත්කාර. කෙස් වල සෞඛ්‍ය ප්‍රතිසාධනය කරන විශේෂ ප්‍රතිකාර සහිත සේවාව.</p>
+                <p class="service-price">රු. 1500 සිට</p>
+            </div>
+            <div class="service-card fade-in">
+                <span class="service-icon">👔</span>
+                <h3 class="service-title">විශේෂ අවස්ථා</h3>
+                <p class="service-description">විවාහ මංගල්‍ය සහ විශේෂ උත්සව සඳහා කෙස් මෝස්තර. ඔබේ විශේෂ දිනය නොමැකෙන ලෙස අලංකාර කරන්න.</p>
+                <p class="service-price">රු. 3000 සිට</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <h2 class="section-title">අපගේ කෘති</h2>
+        <p class="section-subtitle">අපගේ නවීන රූ සටහන්</p>
+        <div class="gallery-grid">
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600" alt="Salon Interior">
+                <div class="gallery-overlay">
+                    <span class="gallery-text">නවීන පරිසරය</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=600" alt="Hair Styling">
+                <div class="gallery-overlay">
+                    <span class="gallery-text">විශිෂ්ට මෝස්තර</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600" alt="Professional Service">
+                <div class="gallery-overlay">
+                    <span class="gallery-text">වෘත්තීය සේවාව</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600" alt="Modern Equipment">
+                <div class="gallery-overlay">
+                    <span class="gallery-text">නවීන උපකරණ</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=600" alt="Styling Tools">
+                <div class="gallery-overlay">
+                    <span class="gallery-text">උසස් තත්ත්වයේ මෙවලම්</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=600" alt="Comfortable Space">
+                <div class="gallery-overlay">
+                    <span class="gallery-text">සුවපහසු පරිසරය</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">අප ගැන</h2>
+        <p class="section-subtitle">ශ්‍රී ලංකාවේ ප්‍රමුඛතම කේශ මෝස්තර සැලෝනය</p>
+        <div class="about-content fade-in">
+            <p><strong>KalanaSaloon</strong> යනු ශ්‍රී ලංකාවේ ප්‍රමුඛතම කේශ මෝස්තර සැලෝන වලින් එකකි. අවුරුදු 15ක පළපුරුද්ද සහිත අපගේ ශිල්පීන් විසින් නවීනතම ශෛලීන් සහ සම්ප්‍රදායික ශිල්ප ශාස්ත්‍ර ඒකාබද්ධ කරමින් ඔබට හොඳම සේවාව ලබා දීම අපගේ අරමුණයි.</p>
+            <br>
+            <p>අපගේ සැලෝනය නවීන පහසුකම් සහ උසස් තත්ත්වයේ නිෂ්පාදන වලින් පිරී ඇත. සෑම පාරිභෝගිකයෙකුටම ආසන්න සේවාවක් සහ සුවපහසු පරිසරයක් සැපයීම අපගේ ප්‍රමුඛතාවයයි. <strong>ඔබේ ශෛලිය අපගේ කලාව</strong> යන්න අපගේ මූලධර්මයයි.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">අපව අමතන්න</h2>
+        <p class="section-subtitle">ඔබේ වෙන්කිරීම් සඳහා අදම අමතන්න</p>
+        <div class="contact-grid">
+            <div class="contact-item fade-in">
+                <span class="contact-icon">📍</span>
+                <h3 class="contact-title">ස්ථානය</h3>
+                <p class="contact-info">123, මාවත,<br>කොළඹ 07,<br>ශ්‍රී ලංකාව</p>
+            </div>
+            <div class="contact-item fade-in">
+                <span class="contact-icon">📞</span>
+                <h3 class="contact-title">දුරකථනය</h3>
+                <p class="contact-info">+94 11 234 5678<br>+94 77 123 4567</p>
+            </div>
+            <div class="contact-item fade-in">
+                <span class="contact-icon">🕐</span>
+                <h3 class="contact-title">විවෘත වේලාවන්</h3>
+                <p class="contact-info">සඳුදා - සෙනසුරාදා<br>9:00 පෙ.ව - 8:00 ප.ව<br>ඉරිදා වසා ඇත</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 KalanaSaloon. සියලුම හිමිකම් ඇවිරිණි.</p>
+        <div class="social-links">
+            <a href="#" title="Facebook">📘</a>
+            <a href="#" title="Instagram">📷</a>
+            <a href="#" title="WhatsApp">💬</a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax Effect for Hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-content');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                hero.style.opacity = 1 - (scrolled / window.innerHeight);
+            }
+        });
+    </script>
+</body>
+</html>
